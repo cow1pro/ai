@@ -1,0 +1,31 @@
+from queue import PriorityQueue
+def best_first_search(graph,start,goal):
+    visited=set()
+    pq=PriorityQueue()
+    pq.put((0,start))
+    while not pq.empty():
+        cost,node=pq.get()
+        visited.add(node)
+        print(node)
+        if node==goal:
+            return True
+        for neighbour in graph[node]:
+            if neighbour not in visited:
+                pq.put((graph[node][neighbour],neighbour))
+    return False
+graph={
+    'S':{'A':12,'B':4},
+    'A':{'C':7,'D':3},
+    'B':{'E':8,'F':2},
+    'E':{'G':4},
+    'F':{'H':9,'I':0},
+    'C':{},
+    'D':{},
+    'G':{},
+    'H':{},
+    'I':{}
+}   
+start_node='S'
+goal_node='I'
+result=best_first_search(graph,start_node,goal_node)
+print("path exists:",result)         
